@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P1 Math: Addition & Subtraction</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">🧮</div>
+        <h1 class="main-title">P1 Math:<br>Addition &amp; Subtraction within 100</h1>
+        <div class="scene-text en-text">Understanding Regrouping</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="table-area">
+          <!-- 47 Area -->
+          <div class="group-47">
+             <div class="tens-sticks" id="tens47">
+               <div class="stick"></div><div class="stick"></div><div class="stick"></div><div class="stick"></div>
+             </div>
+             <div class="ones-cubes" id="ones47">
+               <!-- 7 cubes -->
+               <div class="cube" style="left:0;top:0;"></div><div class="cube" style="left:22px;top:0;"></div>
+               <div class="cube" style="left:44px;top:0;"></div><div class="cube" style="left:66px;top:0;"></div>
+               <div class="cube" style="left:88px;top:0;"></div><div class="cube" style="left:110px;top:0;"></div>
+               <div class="cube" style="left:132px;top:0;"></div>
+             </div>
+          </div>
+          
+          <!-- Plus Sign -->
+          <div class="plus-sign">+</div>
+
+          <!-- 35 Area -->
+          <div class="group-35">
+             <div class="tens-sticks" id="tens35">
+               <div class="stick"></div><div class="stick"></div><div class="stick"></div>
+             </div>
+             <div class="ones-cubes" id="ones35">
+               <!-- 5 cubes -->
+               <div class="cube" style="left:0;top:0;"></div><div class="cube" style="left:22px;top:0;"></div>
+               <div class="cube" style="left:44px;top:0;"></div><div class="cube" style="left:66px;top:0;"></div>
+               <div class="cube" style="left:88px;top:0;"></div>
+             </div>
+          </div>
+        </div>
+        
+        <!-- The newly formed stick -->
+        <div class="stick new-stick" id="newStick"></div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 30px;">47 + 35 &rarr; 7 + 5 = 12 &rarr; Regroup!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="bar-area">
+           <!-- Initial Bars -->
+           <div class="bar-model blue-bar" id="bar47">47</div>
+           <div class="bar-model yellow-bar" id="bar35">35</div>
+
+           <!-- Split Bars -->
+           <div class="split-row tens-row" id="tensRow">
+              <div class="bar-model split blue-bar" id="bar40">40</div>
+              <div class="bar-model split yellow-bar" id="bar30">30</div>
+              <div class="bar-model split green-bar" id="bar10New">10</div>
+           </div>
+           
+           <div class="split-row ones-row" id="onesRow">
+              <div class="bar-model split blue-bar" id="bar7">7</div>
+              <div class="bar-model split yellow-bar" id="bar5">5</div>
+              <div class="bar-model split green-bar" id="bar12">12</div>
+              <div class="bar-model split grey-bar" id="bar2Rem">2</div>
+           </div>
+
+           <!-- Final Bar -->
+           <div class="bar-model combined-bar" id="bar82">82</div>
+        </div>
+        <div class="scene-text en-text" id="scene3-text">Break apart &rarr; Regroup &rarr; Combine</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="vertical-algo">
+          <div class="algo-row carry-row"><span class="carry" id="carry1">1</span></div>
+          <div class="algo-row"><span>4</span><span>7</span></div>
+          <div class="algo-row border-bottom"><span class="operator">+</span><span>3</span><span>5</span></div>
+          <div class="algo-row result">
+            <span id="resTens">8</span><span id="resOnes">2</span>
+          </div>
+          <!-- Highlights -->
+          <div class="col-highlight" id="onesHighlight"></div>
+          <div class="col-highlight" id="tensHighlight"></div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text" style="margin-top: 40px; font-size: 1.15rem;">$$47 + 35 = 82$$</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">✨</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Regrouping = Trading 10 ones for 1 ten!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

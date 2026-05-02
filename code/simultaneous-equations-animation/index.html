@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P6 Math: Simultaneous Equations Concept</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">⚖️</div>
+        <h1 class="main-title">P6 Math:<br>Simultaneous Equations</h1>
+        <div class="scene-text en-text">Substitution &amp; Elimination</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="scales-container">
+            <div class="scale" id="scale1">
+                <div class="scale-base"></div>
+                <div class="scale-pan pan-left">
+                    <span class="fruit apple">🍎</span>
+                    <span class="fruit apple">🍎</span>
+                    <span class="fruit banana">🍌</span>
+                </div>
+                <div class="scale-pan pan-right">
+                    <span class="weight">$5</span>
+                </div>
+            </div>
+
+            <div class="scale" id="scale2">
+                <div class="scale-base"></div>
+                <div class="scale-pan pan-left">
+                    <span class="fruit apple">🍎</span>
+                    <span class="fruit banana">🍌</span>
+                </div>
+                <div class="scale-pan pan-right">
+                    <span class="weight">$3</span>
+                </div>
+            </div>
+            
+            <div class="diff-arrow" id="diffArrow">
+                <span>Difference</span>
+                &rarr;
+                <span class="fruit apple">🍎</span> = $2
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 40px;">Find the difference between the two scales!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="bar-model">
+            <!-- Model 1: A + B = 3 -->
+            <div class="bar-row" id="barEq2">
+                <div class="bar-block block-a">A</div>
+                <div class="bar-block block-b">B</div>
+                <div class="bar-total">3</div>
+            </div>
+            
+            <!-- Substitution animation -->
+            <div class="bar-row" id="barEq2Sub" style="margin-top: 40px;">
+                <div class="bar-block block-val" id="subVal">2</div>
+                <div class="bar-block block-b">B</div>
+                <div class="bar-total">3</div>
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene3-text">Substitute the known value into the bar!</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="equation-container">
+            <div class="equation-chain">
+                <span class="eq-part eq-sys" id="sys1">$$2A + B = 5$$</span>
+                <span class="eq-part eq-sys" id="sys2">$$A + B = 3$$</span>
+                <span class="eq-part" id="sysDiff" style="margin-top:10px; border-top:1px solid #7f8c8d; padding-top:10px;">$$(2A-A) + (B-B) = 5 - 3 \implies A = 2$$</span>
+                <span class="eq-part final-formula" id="sysSub" style="margin-top:20px;">$$2 + B = 3 \implies B = 1$$</span>
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text">Algebra: Elimination and Substitution!</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">🔄</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Eliminate one, solve the other!</h2>
+      </div>
+
+    </div>
+    <div class="subtitle-container"><div id="subtitle-text" class="cn-text"></div></div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info"><span id="sceneLabel" class="scene-label"></span><span id="countdownLabel" class="countdown-label"></span></div>
+  </div>
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [ {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false} ]
+      });
+    });
+  </script>
+</body>
+</html>

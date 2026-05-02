@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P3 Math: Angles & Lines</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">📐</div>
+        <h1 class="main-title">P3 Math:<br>Angles &amp; Lines</h1>
+        <div class="scene-text en-text">How much does it open?</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="concrete-container">
+           <!-- Folding Fan -->
+           <div class="fan-container" id="fanArea">
+              <div class="fan-stick base-stick"></div>
+              <div class="fan-stick moving-stick" id="fanMoving"></div>
+              <div class="fan-arc" id="fanArc"></div>
+              <div class="angle-label" id="fanLabel">0&deg;</div>
+           </div>
+
+           <!-- Roads vs Tracks -->
+           <div class="real-world-area" id="realWorld" style="opacity:0;">
+              <div class="rw-item" id="crossroad">
+                 <div class="road-h"></div>
+                 <div class="road-v"></div>
+                 <div class="right-angle-mark"></div>
+                 <div class="rw-label">Perpendicular</div>
+              </div>
+              <div class="rw-item" id="tracks">
+                 <div class="track t1"></div>
+                 <div class="track t2"></div>
+                 <div class="rw-label">Parallel</div>
+              </div>
+           </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 30px; opacity:0;">90&deg; = Right Angle. &perp; = Perpendicular. &parallel; = Parallel.</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="pictorial-container">
+           <div class="angle-types" id="angleTypes">
+              <div class="a-type" id="typeAcute">
+                 <div class="line-base"></div>
+                 <div class="line-rot" style="transform: rotate(-45deg);"></div>
+                 <div class="a-arc" style="width: 30px; height: 30px; border-top-right-radius: 30px;"></div>
+                 <div class="a-label">Acute<br>&lt;90&deg;</div>
+              </div>
+              <div class="a-type" id="typeRight">
+                 <div class="line-base"></div>
+                 <div class="line-rot" style="transform: rotate(-90deg);"></div>
+                 <div class="a-square"></div>
+                 <div class="a-label">Right<br>=90&deg;</div>
+              </div>
+              <div class="a-type" id="typeObtuse">
+                 <div class="line-base"></div>
+                 <div class="line-rot" style="transform: rotate(-135deg);"></div>
+                 <div class="a-arc obtuse-arc"></div>
+                 <div class="a-label">Obtuse<br>&gt;90&deg;</div>
+              </div>
+           </div>
+
+           <div class="lines-types" id="lineTypes" style="opacity: 0;">
+              <div class="l-type">
+                 <div class="perp-cross">
+                    <div class="p-h"></div><div class="p-v"></div>
+                    <div class="sq sq1"></div><div class="sq sq2"></div><div class="sq sq3"></div><div class="sq sq4"></div>
+                 </div>
+                 <div class="l-label">Perpendicular Lines</div>
+              </div>
+              <div class="l-type">
+                 <div class="para-lines">
+                    <div class="p-line"><div class="arrow"></div></div>
+                    <div class="p-line"><div class="arrow"></div></div>
+                 </div>
+                 <div class="l-label">Parallel Lines</div>
+              </div>
+           </div>
+        </div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="abstract-container">
+           <div class="eq-part" id="ab1">$$\angle A < 90^\circ \text{ (Acute)}$$</div>
+           <div class="eq-part" id="ab2" style="margin-top: 15px;">$$\angle B = 90^\circ \text{ (Right)}$$</div>
+           <div class="eq-part" id="ab3" style="margin-top: 15px;">$$90^\circ < \angle C < 180^\circ \text{ (Obtuse)}$$</div>
+           
+           <div class="eq-part" id="ab4" style="margin-top: 30px; font-size: 2rem; color: #3498db;">
+              $$\perp \quad \parallel$$
+           </div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text" style="margin-top: 30px;">Angle size depends on opening, NOT on line length.</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">📐</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Angle = Amount of turn,<br>NOT length of lines!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

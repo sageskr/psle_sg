@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P5 Math: Percentage</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">📱</div>
+        <h1 class="main-title">P5 Math:<br>Percentage</h1>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="concrete-wrapper">
+          <!-- Battery -->
+          <div class="battery-container" id="batteryWrapper">
+            <div class="battery">
+              <div class="battery-fill" id="batteryFill"></div>
+              <div class="battery-text" id="batteryText">0%</div>
+            </div>
+            <div class="battery-nub"></div>
+          </div>
+          
+          <!-- Discount Tag -->
+          <div class="tag-container" id="tagWrapper" style="display:none;">
+            <div class="discount-tag">
+              <div class="tag-hole"></div>
+              20% OFF
+            </div>
+            <div class="price-calc">
+              <div class="original-price" id="originalPrice">$50</div>
+              <div class="discount-amount" id="discountAmount">-$10</div>
+              <div class="final-price" id="finalPrice">$40</div>
+            </div>
+          </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text">75% = 75 out of 100</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="pictorial-wrapper">
+          <!-- 100 grid -->
+          <div class="grid-100" id="grid100">
+             <!-- Generating 100 cells dynamically in JS -->
+          </div>
+          
+          <!-- Conversion text -->
+          <div class="conversion-text" id="convText">
+             <span id="conv-pct">75%</span>
+             <span id="conv-eq1" class="eq-mark">=</span>
+             <span id="conv-frac1" class="math-part">$$\frac{75}{100}$$</span>
+             <span id="conv-eq2" class="eq-mark">=</span>
+             <span id="conv-frac2" class="math-part">$$\frac{3}{4}$$</span>
+             <span id="conv-eq3" class="eq-mark">=</span>
+             <span id="conv-dec">0.75</span>
+          </div>
+
+          <!-- Bar Model (4 parts) -->
+          <div class="bar-model-4" id="barModel4">
+             <div class="bar-part filled"></div>
+             <div class="bar-part filled"></div>
+             <div class="bar-part filled"></div>
+             <div class="bar-part empty"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="equation-chain" id="eqChain">
+          <span class="eq-part abstract-eq" id="ab-eq1">$$\text{Percentage} = \frac{\text{Part}}{\text{Whole}} \times 100\%$$</span>
+          <span class="eq-part abstract-eq" id="ab-eq2">$$75\% = \frac{75}{100} = 0.75$$</span>
+          <span class="eq-part abstract-eq" id="ab-eq3">$$20\% \text{ of } \$50 = 0.20 \times 50 = \$10$$</span>
+        </div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">%</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Percent = Per Hundred.<br>Convert freely: % &harr; fraction &harr; decimal.</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

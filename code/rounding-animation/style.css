@@ -1,0 +1,435 @@
+:root {
+    --primary: #3498db;
+    --secondary: #f1c40f;
+    --accent: #2ecc71;
+    --bg-color: #f0f4f8;
+    --card-bg: #f9f6f0;
+    --text-dark: #2c3e50;
+    --subtitle-bg: rgba(255, 255, 255, 0.85);
+    --subtitle-text: #34495e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-height: 100vh;
+    padding-top: 40px;
+    color: var(--text-dark);
+}
+
+/* ========== Main App Container ========== */
+.app-container {
+    width: 820px;
+    height: 580px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.animation-stage {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 430px;
+}
+
+/* ========== Subtitles ========== */
+.subtitle-container {
+    height: 150px;
+    background: var(--subtitle-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cn-text {
+    font-size: 1.05rem;
+    color: var(--subtitle-text);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.subtitle-line-cn {
+    color: var(--subtitle-text);
+}
+
+.subtitle-line-en {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* ========== Scenes Common ========== */
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.scene-text {
+    font-size: 1.4rem;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 20px;
+    z-index: 10;
+}
+
+/* ========== Scene 1: Intro ========== */
+.topic-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+/* ========== Scene 2: Concrete ========== */
+.place-value-chart {
+    display: flex;
+    width: 90%;
+    height: 250px;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+}
+
+.pv-column {
+    flex: 1;
+    border-right: 1px solid #bdc3c7;
+    display: flex;
+    flex-direction: column;
+}
+
+.pv-column:last-child {
+    border-right: none;
+}
+
+.pv-header {
+    background: #ecf0f1;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #bdc3c7;
+    font-size: 0.9rem;
+}
+
+.pv-body {
+    flex: 1;
+    position: relative;
+}
+
+.disc {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.disc-1k {
+    background: #e74c3c; /* Red for thousands */
+}
+
+.disc-100 {
+    background: #f39c12; /* Orange for hundreds */
+}
+
+.new-discs-container {
+    position: absolute;
+    top: 50px;
+    left: 450px; /* Outside the chart */
+    width: 150px;
+    height: 100px;
+    opacity: 0;
+}
+
+.new-disc {
+    position: relative;
+    display: inline-flex;
+    margin: 2px;
+    position: absolute;
+}
+
+#merged1k {
+    opacity: 0;
+    transform: scale(0.5);
+    z-index: 10;
+}
+
+/* ========== Scene 3: Pictorial ========== */
+.mountain-container {
+    position: relative;
+    width: 600px;
+    height: 250px;
+    margin-bottom: 20px;
+}
+
+.mountain-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.milestone {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+.peak-milestone {
+    color: #e74c3c;
+}
+
+.ball {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    opacity: 0;
+}
+
+#ball4300 { left: 160px; top: 70px; }
+#ball4700 { left: 390px; top: 70px; }
+#ball4500 { left: 275px; top: -10px; }
+
+/* ========== Scene 4: Abstract ========== */
+.equation-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.eq-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+}
+
+.eq-part {
+    font-size: 1.15rem; /* KaTeX sizing trap */
+}
+
+.eq-desc {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+.digit-focus {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.focus-number {
+    position: relative;
+    opacity: 0;
+}
+
+.focus-digit {
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+    border-radius: 4px;
+    padding: 0 4px;
+}
+
+.arrow-down {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: #e74c3c;
+    white-space: nowrap;
+    opacity: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.arrow-up {
+    color: #2ecc71;
+}
+
+/* ========== Scene 5: Summary ========== */
+.summary-icon {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #95a5a6;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.slogan-en {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* ========== Progress UI ========== */
+.progress-area {
+    width: 820px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: #dfe6e9;
+    border-radius: 3px;
+    position: relative;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--secondary);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+.scene-marker {
+    position: absolute;
+    top: -3px;
+    width: 4px;
+    height: 12px;
+    background: var(--text-dark);
+    border-radius: 2px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+/* ========== Controls ========== */
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controls-divider {
+    width: 1px;
+    height: 24px;
+    background: #ccc;
+    margin: 0 6px;
+}
+
+.lang-btn {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    background-color: #e8f4fd !important;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2) !important;
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    background: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.controls button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ========== Toast ========== */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(44, 62, 80, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+}

@@ -1,0 +1,438 @@
+:root {
+    --primary: #3498db;
+    --secondary: #e74c3c;
+    --accent: #2ecc71;
+    --bg-color: #f0f4f8;
+    --card-bg: #f9f6f0;
+    --text-dark: #2c3e50;
+    --subtitle-bg: rgba(255, 255, 255, 0.85);
+    --subtitle-text: #34495e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-height: 100vh;
+    padding-top: 40px;
+    color: var(--text-dark);
+}
+
+/* ========== Main App Container ========== */
+.app-container {
+    width: 820px;
+    height: 580px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.animation-stage {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 430px;
+}
+
+/* ========== Subtitles ========== */
+.subtitle-container {
+    height: 150px;
+    background: var(--subtitle-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cn-text {
+    font-size: 1.05rem;
+    color: var(--subtitle-text);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.subtitle-line-cn {
+    color: var(--subtitle-text);
+}
+
+.subtitle-line-en {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* ========== Scenes Common ========== */
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.scene-text {
+    font-size: 1.4rem;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 20px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* ========== Scene 1: Intro ========== */
+.topic-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+/* ========== Scene 2: Concrete ========== */
+.concrete-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.grid-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.grid-100 {
+    width: 150px;
+    height: 150px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    border: 2px solid var(--text-dark);
+    background: white;
+}
+
+.cell {
+    border: 1px solid #ecf0f1;
+    background: transparent;
+}
+
+.cell.s30 { background: var(--accent); opacity: 0; }
+.cell.s15 { background: var(--primary); opacity: 0; }
+
+.grid-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    opacity: 0;
+}
+
+#label30 { color: var(--accent); }
+#label15 { color: var(--primary); }
+
+.vs-label {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #95a5a6;
+    opacity: 0;
+}
+
+/* ========== Scene 3: Pictorial ========== */
+.pictorial-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    align-items: center;
+}
+
+.bar-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+}
+
+.bar-model {
+    position: relative;
+    width: 400px;
+    height: 40px;
+    border: 2px solid var(--text-dark);
+    background: white;
+    display: flex;
+}
+
+/* 10 parts bar */
+.b-part {
+    flex: 1;
+    border-right: 1px solid var(--text-dark);
+    z-index: 2;
+}
+.b-part:last-child { border-right: none; }
+
+.bar-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%; /* animate to 30% */
+    background: var(--accent);
+    z-index: 1;
+}
+
+/* 100 parts bar */
+.hundred-lines {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(90deg, transparent 9.5%, rgba(0,0,0,0.1) 10%);
+    background-size: 4px 100%; /* 400px / 100 = 4px per block */
+    z-index: 2;
+}
+
+/* Overlap 10s lines on top of 100s for clarity */
+#bar100::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(90deg, transparent 97%, var(--text-dark) 97%);
+    background-size: 40px 100%;
+    z-index: 3;
+}
+
+.bar-fill-100 {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 0%; /* animate to 15% */
+    background: var(--primary);
+    z-index: 1;
+}
+
+.bar-label {
+    width: 150px;
+    font-size: 1.15rem; /* KaTeX trap */
+}
+
+.comp-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent);
+    opacity: 0;
+}
+
+/* ========== Scene 4: Abstract ========== */
+.abstract-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pv-table {
+    border-collapse: collapse;
+    width: 400px;
+    text-align: center;
+    font-size: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.pv-table th {
+    background: #bdc3c7;
+    color: var(--text-dark);
+    padding: 10px;
+    border: 1px solid #ecf0f1;
+}
+
+.pv-table td {
+    padding: 15px 10px;
+    border: 1px solid #ecf0f1;
+    font-weight: bold;
+}
+
+#row03 td { color: var(--accent); }
+#row015 td { color: var(--primary); }
+
+.zero-pad {
+    opacity: 0;
+    color: #e74c3c !important; /* highlight the added zero */
+}
+
+.eq-part {
+    font-size: 1.5rem;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.rule-box {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background-color: #fdfefe;
+    border-left: 5px solid var(--primary);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    font-weight: 600;
+    color: var(--primary);
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* ========== Scene 5: Summary ========== */
+.summary-icon {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #95a5a6;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.slogan-en {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* ========== Progress UI ========== */
+.progress-area {
+    width: 820px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: #dfe6e9;
+    border-radius: 3px;
+    position: relative;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--secondary);
+    border-radius: 3px;
+}
+
+.scene-marker {
+    position: absolute;
+    top: -3px;
+    width: 4px;
+    height: 12px;
+    background: var(--text-dark);
+    border-radius: 2px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+/* ========== Controls ========== */
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controls-divider {
+    width: 1px;
+    height: 24px;
+    background: #ccc;
+    margin: 0 6px;
+}
+
+.lang-btn {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    background-color: #e8f4fd !important;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2) !important;
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    background: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.controls button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ========== Toast ========== */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(44, 62, 80, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+}

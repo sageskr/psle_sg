@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P4 Math: Time Duration</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">🕒</div>
+        <h1 class="main-title">P4 Math:<br>Time Duration</h1>
+        <div class="scene-text en-text">Calculating Time Elapsed</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            <!-- Markers -->
+            <div class="time-marker" style="left: 10%;">09:00</div>
+            <div class="time-marker" style="left: 30%;">10:00</div>
+            <div class="time-marker" style="left: 60%;">11:00</div>
+            <div class="time-marker" style="left: 90%;">12:00</div>
+            
+            <div class="start-point" id="start945" style="left: 25%;">09:45</div>
+            <div class="end-point" id="end1115" style="left: 67.5%;">11:15</div>
+
+            <!-- Frog -->
+            <div class="frog" id="frog1" style="left: 25%;">🐸</div>
+
+            <!-- Jump paths -->
+            <svg class="jump-svg">
+                <path id="jump1" d="M 205 80 Q 225 30 246 80" class="jump-path"/>
+                <path id="jump2" d="M 246 80 Q 369 -20 492 80" class="jump-path"/>
+                <path id="jump3" d="M 492 80 Q 520 40 553 80" class="jump-path"/>
+            </svg>
+
+            <!-- Jump Labels -->
+            <div class="jump-label" id="labelJ1" style="left: 205px; top: 20px;">+15 mins</div>
+            <div class="jump-label" id="labelJ2" style="left: 350px; top: -30px;">+1 hour</div>
+            <div class="jump-label" id="labelJ3" style="left: 500px; top: 30px;">+15 mins</div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text">Jump to the nearest hour!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="clock-compare">
+            <div class="clock-item">
+                <div class="clock-face">1:00 PM</div>
+            </div>
+            <div class="clock-eq">=</div>
+            <div class="clock-item">
+                <div class="clock-face 24h-face">13:00</div>
+            </div>
+        </div>
+
+        <div class="timeline-container" id="timeline24">
+            <div class="timeline-line"></div>
+            <!-- Markers Day 1 to Day 2 -->
+            <div class="time-marker" style="left: 10%;">22:00</div>
+            <div class="time-marker" style="left: 30%;">23:00</div>
+            <div class="time-marker" style="left: 50%;">00:00</div>
+            <div class="time-marker" style="left: 70%;">01:00</div>
+            <div class="time-marker" style="left: 90%;">02:00</div>
+
+            <div class="start-point" id="start2230" style="left: 20%;">22:30</div>
+            <div class="end-point" id="end0115" style="left: 75%;">01:15</div>
+
+            <div class="frog" id="frog2" style="left: 20%;">🐸</div>
+
+            <svg class="jump-svg">
+                <path id="jump2_1" d="M 164 80 Q 205 30 246 80" class="jump-path"/>
+                <path id="jump2_2" d="M 246 80 Q 328 -10 410 80" class="jump-path"/>
+                <path id="jump2_3" d="M 410 80 Q 492 -10 574 80" class="jump-path"/>
+                <path id="jump2_4" d="M 574 80 Q 594 40 615 80" class="jump-path"/>
+            </svg>
+
+            <!-- Jump Labels -->
+            <div class="jump-label" id="labelJ2_1" style="left: 170px; top: 15px;">+30m</div>
+            <div class="jump-label" id="labelJ2_2" style="left: 310px; top: -20px;">+1h</div>
+            <div class="jump-label" id="labelJ2_3" style="left: 470px; top: -20px;">+1h</div>
+            <div class="jump-label" id="labelJ2_4" style="left: 580px; top: 25px;">+15m</div>
+        </div>
+
+        <div class="scene-text en-text" id="scene3-text" style="margin-top: 10px;">Total Duration = Sum of Jumps</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="equation-container">
+            <div class="equation-chain">
+                <span class="eq-part">$$11:15 - 09:45$$</span>
+                <span class="eq-part">$$= (10:00 - 09:45) + (11:00 - 10:00) + (11:15 - 11:00)$$</span>
+                <span class="eq-part final-formula">$$= 15\text{min} + 1\text{h} + 15\text{min} = 1\text{h } 30\text{min}$$</span>
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text">Break it down into easy steps!</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">🏁</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Use jumps to master time!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="贪吃蛇游戏 - 10关挑战，吃苹果升级，障碍物逐步增加">
+  <title>🐍 贪吃蛇大冒险</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrapper">
+    <div id="hud">
+      <div class="hud-item"><span class="hud-label">关卡</span><span class="hud-value" id="hud-level">1</span></div>
+      <div class="hud-item"><span class="hud-label">分数</span><span class="hud-value" id="hud-score">0</span></div>
+      <div class="hud-item"><span class="hud-label">目标</span><span class="hud-value" id="hud-target">10</span></div>
+      <div class="hud-item"><span class="hud-label">速度</span><span class="hud-value" id="hud-speed">1</span></div>
+    </div>
+
+    <div id="canvas-container">
+      <canvas id="game-canvas"></canvas>
+
+      <!-- Start overlay -->
+      <div class="overlay" id="start-overlay">
+        <h1>🐍 贪吃蛇</h1>
+        <p>方向键 / WASD 控制方向<br>P 键暂停游戏<br>吃苹果得分，通过10关挑战！</p>
+        <button class="btn" id="btn-start">开始游戏</button>
+      </div>
+
+      <!-- Pause overlay -->
+      <div class="overlay hidden" id="pause-overlay">
+        <h2>⏸️ 游戏暂停</h2>
+        <p>按 P 键继续游戏</p>
+      </div>
+
+      <!-- Level complete overlay -->
+      <div class="overlay hidden" id="level-overlay">
+        <h2 id="level-title">🎉 关卡通过！</h2>
+        <p class="score-display" id="level-score"></p>
+        <p id="level-info"></p>
+        <button class="btn" id="btn-next">下一关</button>
+      </div>
+
+      <!-- Game over overlay -->
+      <div class="overlay hidden" id="gameover-overlay">
+        <h2>💀 游戏结束</h2>
+        <p class="score-display" id="go-score"></p>
+        <p id="go-info"></p>
+        <button class="btn" id="btn-retry">重新开始</button>
+      </div>
+
+      <!-- Victory overlay -->
+      <div class="overlay hidden" id="victory-overlay">
+        <h1>🏆 全部通关！</h1>
+        <p class="score-display" id="vic-score"></p>
+        <p>恭喜你完成了全部10关挑战！</p>
+        <button class="btn" id="btn-restart">再来一次</button>
+      </div>
+    </div>
+
+    <div id="controls-hint">↑ ↓ ← → / W A S D　|　P 暂停</div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

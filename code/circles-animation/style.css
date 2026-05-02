@@ -1,0 +1,472 @@
+:root {
+    --primary: #9b59b6;
+    --secondary: #e74c3c;
+    --accent: #f1c40f;
+    --bg-color: #f0f4f8;
+    --card-bg: #f9f6f0;
+    --text-dark: #2c3e50;
+    --subtitle-bg: rgba(255, 255, 255, 0.85);
+    --subtitle-text: #34495e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-height: 100vh;
+    padding-top: 40px;
+    color: var(--text-dark);
+}
+
+/* ========== Main App Container ========== */
+.app-container {
+    width: 820px;
+    height: 580px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.animation-stage {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 430px;
+}
+
+/* ========== Subtitles ========== */
+.subtitle-container {
+    height: 150px;
+    background: var(--subtitle-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cn-text {
+    font-size: 1.05rem;
+    color: var(--subtitle-text);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.subtitle-line-cn {
+    color: var(--subtitle-text);
+}
+
+.subtitle-line-en {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* ========== Scenes Common ========== */
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.scene-text {
+    font-size: 1.4rem;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 20px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* ========== Scene 1: Intro ========== */
+.topic-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+/* ========== Scene 2: Concrete ========== */
+.concrete-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.roll-area {
+    position: relative;
+    width: 600px;
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+.road {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 4px;
+    background: #bdc3c7;
+    border-radius: 2px;
+}
+
+.wheel {
+    position: absolute;
+    bottom: 24px; /* resting on road */
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    border: 4px solid var(--text-dark);
+    border-radius: 50%;
+    background: rgba(155, 89, 182, 0.2);
+    /* For rotation anchor */
+    transform-origin: center center;
+    z-index: 2;
+}
+
+.spoke {
+    position: absolute;
+    background: var(--text-dark);
+    width: 100%; height: 2px;
+    top: 47px; left: 0;
+}
+.s1 { transform: rotate(0deg); }
+.s2 { transform: rotate(45deg); }
+.s3 { transform: rotate(90deg); }
+.s4 { transform: rotate(135deg); }
+
+.wheel-label {
+    position: absolute;
+    top: -25px;
+    left: 25px;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.wheel-marker {
+    position: absolute;
+    bottom: -4px; /* exactly at the rim bottom */
+    left: 48px;
+    width: 8px;
+    height: 8px;
+    background: var(--secondary);
+    border-radius: 50%;
+}
+
+.paint-track {
+    position: absolute;
+    bottom: 22px;
+    left: 100px; /* middle of initial wheel pos */
+    height: 8px;
+    width: 0px; /* animate to 314px (pi * 100) */
+    background: var(--secondary);
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.roll-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-line {
+    font-size: 1.4rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* ========== Scene 3: Pictorial ========== */
+.pictorial-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    height: 350px;
+}
+
+.pie-container {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    /* border: 2px solid #ccc; */
+}
+
+/* individual pizza slice (sector) CSS drawn via clip-path in JS */
+.slice {
+    position: absolute;
+    width: 80px;  /* radius */
+    height: 160px; /* diameter */
+    top: 0;
+    left: 80px; /* center horizontally */
+    transform-origin: 0 80px; /* center of circle */
+    background: var(--primary);
+    border: 1px solid white;
+    /* clip-path to make it a thin wedge will be set in JS */
+}
+
+/* alternate colors for clarity */
+.slice:nth-child(even) {
+    background: #8e44ad;
+}
+
+.rect-container {
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 80px;
+    display: flex;
+    /* justify-content: center; */
+}
+
+/* slice wrapper inside rect-container */
+.rect-slice {
+    position: absolute;
+    width: 80px; height: 160px;
+    background: var(--primary);
+    border: 1px solid white;
+}
+.rect-slice:nth-child(even) { background: #8e44ad; }
+
+
+.rect-labels {
+    position: absolute;
+    top: 240px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 440px;
+    height: 100px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.r-height {
+    position: absolute;
+    left: -30px;
+    top: 25px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.r-width {
+    position: absolute;
+    top: -45px;
+    left: 100px;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.area-eq {
+    position: absolute;
+    bottom: -50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    opacity: 0;
+}
+
+/* ========== Scene 4: Abstract ========== */
+.abstract-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.formulas-box {
+    padding: 20px 40px;
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.f-line {
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.calc-example {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    background: #ecf0f1;
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    font-family: monospace;
+}
+
+/* ========== Scene 5: Summary ========== */
+.summary-icon {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #95a5a6;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.slogan-en {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* ========== Progress UI ========== */
+.progress-area {
+    width: 820px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: #dfe6e9;
+    border-radius: 3px;
+    position: relative;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--secondary);
+    border-radius: 3px;
+}
+
+.scene-marker {
+    position: absolute;
+    top: -3px;
+    width: 4px;
+    height: 12px;
+    background: var(--text-dark);
+    border-radius: 2px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+/* ========== Controls ========== */
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controls-divider {
+    width: 1px;
+    height: 24px;
+    background: #ccc;
+    margin: 0 6px;
+}
+
+.lang-btn {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    background-color: #e8f4fd !important;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2) !important;
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    background: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.controls button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ========== Toast ========== */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(44, 62, 80, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+}

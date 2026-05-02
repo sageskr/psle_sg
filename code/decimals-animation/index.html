@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P4 Math: Decimals</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">💰</div>
+        <h1 class="main-title">P4 Math:<br>Decimals</h1>
+        <div class="scene-text en-text">0.30 vs 0.15 &mdash; which is more?</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="concrete-container">
+           <!-- Grid 1: 0.30 -->
+           <div class="grid-wrap">
+              <div class="grid-100" id="grid30">
+                 <!-- 100 cells generated via JS -->
+              </div>
+              <div class="grid-label" id="label30">0.30 (30 squares)</div>
+           </div>
+
+           <div class="vs-label" id="vsConcrete">vs</div>
+
+           <!-- Grid 2: 0.15 -->
+           <div class="grid-wrap">
+              <div class="grid-100" id="grid15">
+                 <!-- 100 cells generated via JS -->
+              </div>
+              <div class="grid-label" id="label15">0.15 (15 squares)</div>
+           </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 30px; opacity:0; color: #2ecc71; font-weight: bold;">Clearly 0.30 &gt; 0.15!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="pictorial-container">
+           <!-- Bar 0.3 -->
+           <div class="bar-container">
+              <div class="bar-model" id="bar10">
+                 <!-- 10 parts -->
+                 <div class="b-part"></div><div class="b-part"></div><div class="b-part"></div><div class="b-part"></div><div class="b-part"></div>
+                 <div class="b-part"></div><div class="b-part"></div><div class="b-part"></div><div class="b-part"></div><div class="b-part"></div>
+                 <div class="bar-fill" id="fill10"></div>
+              </div>
+              <div class="bar-label">$$0.3 = \frac{3}{10} = \frac{30}{100}$$</div>
+           </div>
+
+           <!-- Bar 0.15 -->
+           <div class="bar-container">
+              <div class="bar-model" id="bar100">
+                 <!-- 100 parts background visually -->
+                 <div class="bar-fill-100" id="fill100"></div>
+                 <div class="hundred-lines"></div>
+              </div>
+              <div class="bar-label">$$0.15 = \frac{15}{100}$$</div>
+           </div>
+           
+           <div class="comp-label" id="barComp">30 hundredths &gt; 15 hundredths</div>
+        </div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="abstract-container">
+           <table class="pv-table">
+              <thead>
+                 <tr>
+                    <th>Ones</th>
+                    <th>.</th>
+                    <th>Tenths</th>
+                    <th>Hundredths</th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr id="row03">
+                    <td>0</td>
+                    <td>.</td>
+                    <td>3</td>
+                    <td class="zero-pad" id="padZero">0</td>
+                 </tr>
+                 <tr id="row015">
+                    <td>0</td>
+                    <td>.</td>
+                    <td>1</td>
+                    <td>5</td>
+                 </tr>
+              </tbody>
+           </table>
+           
+           <div class="eq-part" id="ab1" style="margin-top: 20px;">$$0.30 > 0.15$$</div>
+           
+           <div class="rule-box" id="ruleBox">
+              Adding a zero after the last decimal digit doesn't change the value!
+           </div>
+        </div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">🎯</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Decimals = Fractions in disguise.<br>Align the decimal point!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P6 Math: Number & Visual Patterns</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">🧱</div>
+        <h1 class="main-title">P6 Math:<br>Number &amp; Visual Patterns</h1>
+        <div class="scene-text en-text">Finding the Hidden Rule</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="pattern-stage">
+            <div class="figure" id="fig1">
+                <div class="fig-title">Figure 1</div>
+                <div class="tiles">
+                    <div class="tile tile-core"></div>
+                    <div class="tile tile-outer" style="top:-30px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:30px; left:0;"></div>
+                </div>
+            </div>
+            
+            <div class="figure" id="fig2">
+                <div class="fig-title">Figure 2</div>
+                <div class="tiles">
+                    <div class="tile tile-core"></div>
+                    <div class="tile tile-outer" style="top:-30px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:-60px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:30px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:60px; left:0;"></div>
+                </div>
+            </div>
+            
+            <div class="figure" id="fig3">
+                <div class="fig-title">Figure 3</div>
+                <div class="tiles">
+                    <div class="tile tile-core"></div>
+                    <div class="tile tile-outer" style="top:-30px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:-60px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:-90px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:30px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:60px; left:0;"></div>
+                    <div class="tile tile-outer" style="top:90px; left:0;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 20px;">Separate the Constant from the Growing parts!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="formula-map">
+            <div class="map-core">
+                <div class="tile tile-core map-tile"></div>
+                <div class="map-label">Constant "Seed" = 1</div>
+            </div>
+            <div class="map-plus">+</div>
+            <div class="map-grow">
+                <div class="tile tile-outer map-tile"></div>
+                <div class="tile tile-outer map-tile"></div>
+                <div class="map-label">Increment = +2 per step</div>
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene3-text" style="margin-top: 40px;">Total = Seed + (Increment &times; Figure Number)</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <table class="pattern-table">
+            <thead>
+                <tr>
+                    <th>Fig (n)</th>
+                    <th>Core</th>
+                    <th>Outer Branches</th>
+                    <th>Total Formula</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="tr1">
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1 &times; 2</td>
+                    <td>$$1 + 2(1) = 3$$</td>
+                </tr>
+                <tr id="tr2">
+                    <td>2</td>
+                    <td>1</td>
+                    <td>2 &times; 2</td>
+                    <td>$$1 + 2(2) = 5$$</td>
+                </tr>
+                <tr id="tr3">
+                    <td>3</td>
+                    <td>1</td>
+                    <td>3 &times; 2</td>
+                    <td>$$1 + 2(3) = 7$$</td>
+                </tr>
+                <tr id="trN" class="total-row">
+                    <td>n</td>
+                    <td>1</td>
+                    <td>n &times; 2</td>
+                    <td>$$1 + 2n$$</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="scene-text en-text" id="scene4-text">General Formula derived!</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">🧩</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Find the seed, track the growth!</h2>
+      </div>
+
+    </div>
+    <div class="subtitle-container"><div id="subtitle-text" class="cn-text"></div></div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info"><span id="sceneLabel" class="scene-label"></span><span id="countdownLabel" class="countdown-label"></span></div>
+  </div>
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [ {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false} ]
+      });
+    });
+  </script>
+</body>
+</html>

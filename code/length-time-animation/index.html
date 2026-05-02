@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P1 Math: Length & Time</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">📏</div>
+        <h1 class="main-title">P1 Math:<br>Length &amp; Time</h1>
+        <div class="scene-text en-text">Measuring the World Around Us</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="measure-container">
+           <div class="book-object">Math Book</div>
+           <div class="clips-row">
+             <div class="clip">📎</div><div class="clip">📎</div><div class="clip">📎</div><div class="clip">📎</div><div class="clip">📎</div>
+           </div>
+           <div class="erasers-row">
+             <div class="eraser">🧽</div><div class="eraser">🧽</div><div class="eraser">🧽</div>
+           </div>
+        </div>
+        <div class="comparison-texts">
+           <div class="comp-text" id="clipsText">5 paper clips</div>
+           <div class="comp-text" id="vsText">vs</div>
+           <div class="comp-text" id="erasersText">3 erasers</div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 30px;">Same book, different numbers?<br>We need a standard unit!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="pictorial-container">
+            <!-- Ruler section -->
+            <div class="ruler-area" id="rulerArea">
+               <div class="book-small">Book</div>
+               <div class="ruler">
+                  <div class="ruler-marks"></div>
+                  <div class="ruler-fill" id="rulerFill"></div>
+               </div>
+               <div class="measure-label" id="rulerLabel">15 cm</div>
+            </div>
+
+            <!-- Clock section -->
+            <div class="clock-area" id="clockArea">
+               <div class="clock">
+                  <div class="clock-center"></div>
+                  <div class="hand hour-hand" id="hourHand"></div>
+                  <div class="hand minute-hand" id="minuteHand"></div>
+                  <!-- Markers -->
+                  <div class="clock-marker mark-12">12</div>
+                  <div class="clock-marker mark-3">3</div>
+                  <div class="clock-marker mark-6">6</div>
+                  <div class="clock-marker mark-9">9</div>
+               </div>
+               <div class="measure-label" id="clockLabel">3 o'clock</div>
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene3-text">Length &rarr; Ruler (cm). Time &rarr; Clock (hours)</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="equation-chain">
+          <div class="eq-part" id="ab1">$$15 \text{ cm} > 10 \text{ cm}$$</div>
+          <div class="eq-part" id="ab2" style="margin-top: 20px;">"3 o'clock" &rarr; <span class="digital-time">3:00</span></div>
+          <div class="eq-part" id="ab3" style="margin-top: 10px;">"half past 3" &rarr; <span class="digital-time">3:30</span></div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text" style="margin-top: 30px;">cm for length, o'clock for time</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">📏⏰</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Measure fairly with standard units!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

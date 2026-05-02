@@ -1,0 +1,374 @@
+:root {
+    --primary: #3498db;
+    --secondary: #e67e22;
+    --accent: #2ecc71;
+    --bg-color: #f0f4f8;
+    --card-bg: #f9f6f0;
+    --text-dark: #2c3e50;
+    --subtitle-bg: rgba(255, 255, 255, 0.85);
+    --subtitle-text: #34495e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-height: 100vh;
+    padding-top: 40px;
+    color: var(--text-dark);
+}
+
+/* ========== Main App Container ========== */
+.app-container {
+    width: 820px;
+    height: 580px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.animation-stage {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 430px;
+    perspective: 1500px;
+}
+
+/* ========== Subtitles ========== */
+.subtitle-container {
+    height: 150px;
+    background: var(--subtitle-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cn-text {
+    font-size: 1.05rem;
+    color: var(--subtitle-text);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.subtitle-line-cn {
+    color: var(--subtitle-text);
+}
+
+.subtitle-line-en {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* ========== Scenes Common ========== */
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.scene-text {
+    font-size: 1.4rem;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 20px;
+    z-index: 10;
+}
+
+/* ========== Scene 1: Intro ========== */
+.topic-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+/* ========== 3D Isometric Elements ========== */
+.isometric-container {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(-45deg);
+}
+
+/* Concrete Stage */
+.box-outline {
+    position: absolute;
+    width: 160px; /* 4 cubes * 40px */
+    height: 80px; /* 2 cubes * 40px */
+    transform-style: preserve-3d;
+    /* Bottom face */
+}
+
+.box-outline::after {
+    content: '';
+    position: absolute;
+    width: 160px;
+    height: 120px; /* 3 cubes * 40px */
+    border: 2px dashed rgba(44, 62, 80, 0.4);
+    transform: rotateX(90deg) translateZ(-80px);
+    transform-origin: bottom;
+}
+
+.cubes-layer {
+    position: absolute;
+    width: 160px;
+    height: 120px;
+    transform-style: preserve-3d;
+    transform: rotateX(90deg); /* lay flat */
+}
+
+.unit-cube {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    transform-style: preserve-3d;
+    opacity: 0;
+}
+
+.cube-face {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.cube-face.top {
+    background: rgba(52, 152, 219, 0.8);
+    transform: translateZ(20px);
+}
+.cube-face.front {
+    background: rgba(41, 128, 185, 0.9);
+    transform: rotateX(-90deg) translateZ(20px);
+}
+.cube-face.right {
+    background: rgba(52, 152, 219, 0.6);
+    transform: rotateY(90deg) translateZ(20px);
+}
+
+/* Pictorial Stage */
+.prism {
+    position: absolute;
+    width: 160px;
+    height: 80px;
+    transform-style: preserve-3d;
+    opacity: 0;
+}
+
+.face {
+    position: absolute;
+    border: 2px solid var(--text-dark);
+    background: rgba(230, 126, 34, 0.3);
+}
+
+.face.top {
+    width: 160px; height: 120px;
+    transform: rotateX(90deg) translateZ(40px);
+}
+.face.bottom {
+    width: 160px; height: 120px;
+    transform: rotateX(90deg) translateZ(-40px);
+    transition: background 0.5s;
+}
+.face.left { /* front face in this orientation */
+    width: 160px; height: 80px;
+    transform: translateZ(60px);
+}
+.face.right {
+    width: 120px; height: 80px;
+    transform: rotateY(90deg) translateZ(100px);
+}
+
+.dim-label {
+    position: absolute;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    opacity: 0;
+    transform: rotateY(45deg) rotateX(20deg); /* undo isometric parent rotation visually */
+}
+
+.dim-label.length { bottom: -30px; left: 40px; }
+.dim-label.width { right: -120px; bottom: 20px; }
+.dim-label.height { left: -90px; top: 20px; }
+
+/* ========== Scene 4: Abstract (Equations) ========== */
+.equation-chain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    max-height: 380px;
+}
+
+.eq-part {
+    font-size: 1.15rem;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+/* ========== Scene 5: Summary ========== */
+.summary-icon {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #95a5a6;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.slogan-en {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* ========== Progress UI ========== */
+.progress-area {
+    width: 820px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: #dfe6e9;
+    border-radius: 3px;
+    position: relative;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--secondary);
+    border-radius: 3px;
+}
+
+.scene-marker {
+    position: absolute;
+    top: -3px;
+    width: 4px;
+    height: 12px;
+    background: var(--text-dark);
+    border-radius: 2px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+/* ========== Controls ========== */
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controls-divider {
+    width: 1px;
+    height: 24px;
+    background: #ccc;
+    margin: 0 6px;
+}
+
+.lang-btn {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+.lang-btn.active {
+    opacity: 1;
+    background-color: #e8f4fd !important;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2) !important;
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    background: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.controls button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ========== Toast ========== */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(44, 62, 80, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P2 Math: Money & Volume</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">🪙</div>
+        <h1 class="main-title">P2 Math:<br>Money &amp; Volume</h1>
+        <div class="scene-text en-text">Counting Coins &amp; Measuring Liquids</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="concrete-container">
+           <!-- Coins Area -->
+           <div class="coins-area">
+             <div class="coin coin-100" id="coin1">
+               <div class="coin-inner">$1</div>
+             </div>
+             
+             <!-- 50c coins -->
+             <div class="coin coin-50 c50-1" style="display:none;"><div class="coin-inner">50¢</div></div>
+             <div class="coin coin-50 c50-2" style="display:none;"><div class="coin-inner">50¢</div></div>
+             
+             <!-- 20c coins -->
+             <div class="coin coin-20 c20" id="c20-group" style="display:none;">
+                <div class="coin-inner">20¢</div>
+                <div class="coin-inner">20¢</div>
+                <div class="coin-inner">20¢</div>
+                <div class="coin-inner">20¢</div>
+                <div class="coin-inner">20¢</div>
+             </div>
+             
+             <!-- 10c coins -->
+             <div class="coin coin-10 c10" id="c10-group" style="display:none;">
+                <div class="coin-inner">10¢</div><div class="coin-inner">10¢</div><div class="coin-inner">10¢</div>
+                <div class="coin-inner">10¢</div><div class="coin-inner">10¢</div><div class="coin-inner">10¢</div>
+                <div class="coin-inner">10¢</div><div class="coin-inner">10¢</div><div class="coin-inner">10¢</div>
+                <div class="coin-inner">10¢</div>
+             </div>
+           </div>
+           
+           <!-- Measuring Jug Area -->
+           <div class="jug-area" id="jugArea">
+             <div class="jug">
+               <div class="jug-fill" id="jugFill"></div>
+               <div class="jug-marks">
+                 <div class="mark" style="bottom: 0%;"><span>0</span></div>
+                 <div class="mark" style="bottom: 25%;"><span>250</span></div>
+                 <div class="mark highlight-mark" style="bottom: 50%;"><span>500 mℓ</span></div>
+                 <div class="mark" style="bottom: 75%;"><span>750</span></div>
+                 <div class="mark" style="bottom: 100%;"><span>1000 mℓ</span></div>
+               </div>
+             </div>
+           </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 30px;">$1 = 100&cent;. Read the scale carefully!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="pictorial-container">
+           <!-- Money Bar Model -->
+           <div class="money-model">
+              <div class="bar-title">$1 = 100&cent;</div>
+              <div class="bar main-bar" id="moneyMainBar"></div>
+              <div class="bar-split" id="moneySplitBar">
+                 <!-- 10 blocks -->
+                 <div class="bar-block">10&cent;</div><div class="bar-block">10&cent;</div><div class="bar-block">10&cent;</div>
+                 <div class="bar-block">10&cent;</div><div class="bar-block">10&cent;</div><div class="bar-block">10&cent;</div>
+                 <div class="bar-block">10&cent;</div><div class="bar-block">10&cent;</div><div class="bar-block">10&cent;</div>
+                 <div class="bar-block">10&cent;</div>
+              </div>
+           </div>
+           
+           <!-- Volume Bar Model -->
+           <div class="volume-model" id="volModel">
+              <div class="vert-bar">
+                 <div class="vert-fill"></div>
+                 <div class="vert-label top">1 ℓ = 1000 mℓ</div>
+                 <div class="vert-label mid">500 mℓ</div>
+              </div>
+           </div>
+        </div>
+        <div class="scene-text en-text" id="scene3-text">Bar model works for money AND volume!</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="equation-chain">
+          <div class="eq-part" id="ab1">$$\$1 = 100¢$$</div>
+          <div class="eq-part" id="ab2" style="margin-top: 15px;">$$\$5.00 - \$2.50 = \$2.50$$</div>
+          <div class="eq-part" id="ab3" style="margin-top: 15px;">$$1 \text{ ℓ} = 1000 \text{ mℓ}$$</div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text" style="margin-top: 30px;">Convert and calculate!</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">🪙🥛</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">$1 = 100 cents. 1 litre = 1000 mℓ.</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a1a;
+  color: #e0e0ff;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Animated background */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 20%, rgba(40, 0, 80, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(0, 40, 80, 0.3) 0%, transparent 50%);
+  animation: bgPulse 8s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes bgPulse {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  100% {
+    transform: rotate(5deg) scale(1.05);
+  }
+}
+
+#game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* HUD */
+#hud {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  padding: 12px 24px;
+  background: rgba(15, 15, 40, 0.85);
+  border: 1px solid rgba(100, 100, 255, 0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  font-family: 'Orbitron', monospace;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hud-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(150, 160, 255, 0.6);
+}
+
+.hud-value {
+  font-size: 22px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #7b8cff, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Canvas container */
+#canvas-container {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(80, 60, 200, 0.2), 0 0 80px rgba(80, 60, 200, 0.1);
+  border: 2px solid rgba(100, 100, 255, 0.2);
+}
+
+canvas {
+  display: block;
+  background: #0d0d24;
+}
+
+/* Overlays */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(5, 5, 20, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  transition: opacity 0.4s;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: 42px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #6366f1, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+  text-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
+}
+
+.overlay h2 {
+  font-family: 'Orbitron', monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-bottom: 8px;
+}
+
+.overlay p {
+  font-size: 14px;
+  color: rgba(200, 200, 255, 0.6);
+  margin-bottom: 24px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.overlay .score-display {
+  font-family: 'Orbitron', monospace;
+  font-size: 20px;
+  color: #f472b6;
+  margin-bottom: 16px;
+}
+
+.btn {
+  font-family: 'Orbitron', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Controls hint */
+#controls-hint {
+  font-size: 11px;
+  color: rgba(150, 160, 255, 0.4);
+  font-family: 'Orbitron', monospace;
+  letter-spacing: 1px;
+}
+
+/* Level transition animation */
+@keyframes levelPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+.level-anim {
+  animation: levelPulse 0.6s ease-in-out 3;
+}

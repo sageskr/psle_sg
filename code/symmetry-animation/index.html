@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P4 Math: Symmetry</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">🦋</div>
+        <h1 class="main-title">P4 Math:<br>Symmetry</h1>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="paper-container">
+          <!-- Heart folding animation -->
+          <div class="paper" id="paper">
+            <div class="paper-left">
+              <div class="heart-half left" id="heartLeft"></div>
+            </div>
+            <div class="paper-right" id="paperRight">
+              <div class="heart-half right" id="heartRight"></div>
+            </div>
+          </div>
+          
+          <!-- Butterfly mirror animation -->
+          <div class="butterfly-container" id="butterflyContainer">
+            <div class="mirror" id="mirror"></div>
+            <div class="butterfly">
+               <div class="wing wing-left" id="wingLeft"></div>
+               <div class="butterfly-body"></div>
+               <div class="wing wing-right" id="wingRight"></div>
+            </div>
+          </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text">Fold &rarr; Cut &rarr; Unfold &rarr; Symmetric!</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="grid-container">
+          <div class="shape-wrapper" id="squareWrapper">
+             <div class="shape square"></div>
+             <div class="sym-line vertical" id="sq-v"></div>
+             <div class="sym-line horizontal" id="sq-h"></div>
+             <div class="sym-line diag-1" id="sq-d1"></div>
+             <div class="sym-line diag-2" id="sq-d2"></div>
+          </div>
+          
+          <div class="shape-wrapper" id="rectWrapper" style="display:none;">
+             <div class="shape rectangle" id="rectangleShape"></div>
+             <div class="sym-line vertical" id="re-v"></div>
+             <div class="sym-line horizontal" id="re-h"></div>
+             <div class="sym-line diag-1 error-line" id="re-d1"></div>
+          </div>
+
+          <div class="shape-wrapper" id="circleWrapper" style="display:none;">
+             <div class="shape circle"></div>
+             <div class="sym-line" id="ci-l1" style="transform: rotate(0deg)"></div>
+             <div class="sym-line" id="ci-l2" style="transform: rotate(30deg)"></div>
+             <div class="sym-line" id="ci-l3" style="transform: rotate(60deg)"></div>
+             <div class="sym-line" id="ci-l4" style="transform: rotate(90deg)"></div>
+             <div class="sym-line" id="ci-l5" style="transform: rotate(120deg)"></div>
+             <div class="sym-line" id="ci-l6" style="transform: rotate(150deg)"></div>
+          </div>
+        </div>
+        <div class="scene-text en-text" id="scene3-text">Square = 4 axes.</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <h2 class="fact-family-title" style="font-size: 1.6rem; color: #34495e;">A line of symmetry divides a shape into two mirror-image halves</h2>
+        
+        <table class="symmetry-table" id="symTable">
+          <thead>
+            <tr>
+              <th>Shape</th>
+              <th>Lines of Symmetry</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row1">
+              <td>Square</td>
+              <td>4</td>
+            </tr>
+            <tr id="row2">
+              <td>Rectangle</td>
+              <td>2</td>
+            </tr>
+            <tr id="row3">
+              <td>Equilateral Triangle</td>
+              <td>3</td>
+            </tr>
+            <tr id="row4">
+              <td>Circle</td>
+              <td>&infin; (Infinite)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">🦋</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Fold it &mdash; if both sides match,<br>it's symmetric!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

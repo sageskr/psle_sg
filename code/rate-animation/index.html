@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P5 Math: Rate</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">🚰</div>
+        <h1 class="main-title">P5 Math:<br>Rate</h1>
+        <div class="scene-text en-text">How much per unit of time?</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="concrete-container">
+           <div class="rate-examples">
+              <!-- Tap & Bucket -->
+              <div class="rate-box" id="tapBox">
+                 <div class="tap-icon">🚰</div>
+                 <div class="bucket">
+                    <div class="water" id="bucketWater"></div>
+                    <div class="drop" id="waterDrop"></div>
+                 </div>
+                 <div class="r-label" id="tapLabel">Time: 0 min<br>Amount: 0&ell;</div>
+                 <div class="r-rate" style="color:#3498db;">Rate = 2 &ell; / min</div>
+              </div>
+
+              <!-- Factory Machine -->
+              <div class="rate-box" id="machineBox" style="opacity: 0;">
+                 <div class="machine-icon">⚙️</div>
+                 <div class="conveyer">
+                    <div class="toy t1">🧸</div><div class="toy t2">🧸</div><div class="toy t3">🧸</div>
+                 </div>
+                 <div class="r-label" id="machineLabel">Time: 1 min<br>Amount: 5 toys</div>
+                 <div class="r-rate" style="color:#e67e22;">Rate = 5 toys / min</div>
+              </div>
+           </div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 30px; opacity:0;">Both are "rates" (amount per unit time).</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="pictorial-container">
+           <div class="bar-system" id="bar3min">
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-bracket">6&ell; in 3 min</div>
+           </div>
+
+           <div class="q-text" id="q10l" style="margin-top:20px; opacity: 0;">How long to fill 10&ell;?</div>
+
+           <div class="bar-system" id="bar10l" style="margin-top:10px; opacity: 0;">
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-block blue">2&ell;</div>
+              <div class="b-bracket" style="color:var(--text-dark);">10 &divide; 2 = 5 blocks &rarr; 5 min</div>
+           </div>
+           
+           <div class="calc-box" id="calcBox">
+              Rate &times; Time = Total Amount
+           </div>
+        </div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="abstract-container">
+           <div class="eq-part" id="ab1">$$\text{Rate} = \frac{\text{Total Amount}}{\text{Time}}$$</div>
+           <div class="eq-part" id="ab2" style="margin-top: 15px;">$$\text{Total Amount} = \text{Rate} \times \text{Time}$$</div>
+           <div class="eq-part" id="ab3" style="margin-top: 15px;">$$\text{Time} = \frac{\text{Total Amount}}{\text{Rate}}$$</div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text" style="margin-top: 30px;">Three formulas, one family.</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">⏱️</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Rate = How much<br>per unit time!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

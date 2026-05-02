@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P6 Math: Speed, Time &amp; Distance</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX — NO defer, must load synchronously -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="road-icon">🛣️</div>
+        <h1 class="main-title">P6 Math:<br>Speed, Time &amp; Distance</h1>
+        <p class="scene-subtitle">Understanding the Relationship</p>
+      </div>
+
+      <!-- Scene 2: Concrete — Car on road -->
+      <div id="scene2" class="scene">
+        <div class="road-container">
+          <div class="road">
+            <div class="road-line"></div>
+            <div class="marker" id="marker-0"><span>0 km</span></div>
+            <div class="marker" id="marker-60"><span>60 km</span></div>
+            <div class="marker" id="marker-120"><span>120 km</span></div>
+            <div class="marker" id="marker-180"><span>180 km</span></div>
+          </div>
+          <div class="car" id="car">🚗</div>
+        </div>
+        <div class="clock-area">
+          <div class="clock" id="clock">
+            <div class="clock-face">
+              <div class="clock-hand" id="clockHand"></div>
+              <div class="clock-center"></div>
+            </div>
+          </div>
+          <div class="clock-label" id="clockLabel">0 hr</div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text">60 km covered in 1 hour</div>
+      </div>
+
+      <!-- Scene 3: Pictorial — Bar Model -->
+      <div id="scene3" class="scene">
+        <div class="bar-model-container">
+          <div class="bar-label-top" id="barLabelTop">Total Distance: 180 km</div>
+          <div class="distance-bar" id="distanceBar">
+            <div class="bar-unit" id="unit1">
+              <span class="unit-label" id="unitLabel1">60 km</span>
+              <span class="unit-time">1 hr</span>
+            </div>
+            <div class="bar-unit" id="unit2">
+              <span class="unit-label" id="unitLabel2">60 km</span>
+              <span class="unit-time">1 hr</span>
+            </div>
+            <div class="bar-unit" id="unit3">
+              <span class="unit-label" id="unitLabel3">60 km</span>
+              <span class="unit-time">1 hr</span>
+            </div>
+          </div>
+          <div class="speed-label" id="speedLabel">Each unit = 60 km/h</div>
+        </div>
+        <div class="scene-text en-text" id="scene3-text">Speed = Distance per unit Time</div>
+      </div>
+
+      <!-- Scene 4: Abstract — Formulas -->
+      <div id="scene4" class="scene">
+        <div class="equation-chain">
+          <span class="eq-part" id="formula1">$$Speed = \frac{Distance}{Time}$$</span>
+          <span class="eq-part" id="formula2">$$Distance = Speed \times Time$$</span>
+          <span class="eq-part" id="formula3">$$Time = \frac{Distance}{Speed}$$</span>
+        </div>
+        <div class="final-formula">$$D = S \times T$$</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-car">🏎️💨</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Speed is just "Distance in 1 Unit of Time"!</h2>
+      </div>
+
+    </div>
+
+    <!-- Subtitle Area -->
+    <div class="subtitle-container">
+      <div id="subtitle-text" class="cn-text"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Progress bar + scene indicator -->
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info">
+      <span id="sceneLabel" class="scene-label">准备开始</span>
+      <span id="countdownLabel" class="countdown-label"></span>
+    </div>
+  </div>
+
+  <!-- Controls — OUTSIDE app-container -->
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "$", right: "$", display: false}
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

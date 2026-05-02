@@ -1,0 +1,68 @@
+:root { --primary: #3498db; --secondary: #f1c40f; --accent: #e74c3c; --bg-color: #f0f4f8; --card-bg: #f9f6f0; --text-dark: #2c3e50; --subtitle-bg: rgba(255, 255, 255, 0.85); --subtitle-text: #34495e; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); display: flex; flex-direction: column; align-items: center; gap: 16px; min-height: 100vh; padding-top: 40px; color: var(--text-dark); }
+.app-container { width: 820px; height: 580px; background: var(--card-bg); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.animation-stage { flex: 1; position: relative; width: 100%; height: 430px; }
+.subtitle-container { height: 150px; background: var(--subtitle-bg); backdrop-filter: blur(10px); border-top: 1px solid rgba(0,0,0,0.05); padding: 16px 40px; display: flex; align-items: center; justify-content: center; }
+.cn-text { font-size: 1.05rem; color: var(--subtitle-text); text-align: center; line-height: 1.5; }
+.subtitle-line-cn { color: var(--subtitle-text); }
+.subtitle-line-en { color: #7f8c8d; font-style: italic; margin-top: 4px; }
+.scene { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; visibility: hidden; opacity: 0; }
+.scene-text { font-size: 1.4rem; color: #7f8c8d; font-style: italic; margin-top: 20px; z-index: 10; }
+.topic-icon { font-size: 4rem; margin-bottom: 20px; }
+.main-title { font-size: 2.8rem; font-weight: 700; text-align: center; color: var(--text-dark); margin-bottom: 12px; }
+
+/* ========== Scene 2 ========== */
+.parking-container { display: flex; align-items: flex-end; gap: 50px; position: relative; height: 250px; }
+.gate { position: relative; width: 150px; height: 100px; border-bottom: 4px solid #34495e; display: flex; align-items: center; justify-content: center; }
+.gate-arm { position: absolute; top: 20px; left: 0; width: 120px; height: 10px; background: repeating-linear-gradient(45deg, #e74c3c, #e74c3c 10px, #ecf0f1 10px, #ecf0f1 20px); transform-origin: left center; }
+.car { font-size: 4rem; position: absolute; left: -100px; opacity: 0; }
+
+.block-tower { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; width: 200px; height: 200px; }
+.cost-block { width: 100%; padding: 10px; color: white; text-align: center; font-weight: bold; border-radius: 4px; margin-top: 5px; opacity: 0; transform: translateY(20px); }
+.block-green { background: #2ecc71; height: 50px; }
+.block-orange { background: #f39c12; height: 50px; }
+.block-red { background: #e74c3c; height: 80px; }
+
+.block-info { font-size: 0.9rem; opacity: 0.9; }
+.block-price { font-size: 1.2rem; }
+
+.total-display { position: absolute; top: 0; right: -80px; font-size: 2rem; font-weight: bold; color: var(--text-dark); background: white; padding: 10px 20px; border: 2px solid #bdc3c7; border-radius: 8px; opacity: 0; }
+
+/* ========== Scene 3 ========== */
+.staircase-model { width: 600px; display: flex; flex-direction: column; gap: 20px; }
+.full-bar { width: 100%; height: 50px; background: #95a5a6; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; border-radius: 4px; }
+.segment-container { display: flex; width: 100%; gap: 10px; }
+.bar-segment { display: flex; flex-direction: column; align-items: center; padding: 10px; color: white; font-weight: bold; border-radius: 4px; opacity: 0; }
+.seg-green { flex: 1; background: #2ecc71; }
+.seg-orange { flex: 1; background: #f39c12; }
+.seg-red { flex: 2; background: #e74c3c; }
+
+.rate-tag { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px; margin: 10px 0; font-size: 0.9rem; }
+.sub-total { font-size: 1.2rem; opacity: 0; }
+
+/* ========== Scene 4 ========== */
+.rate-table { width: 500px; border-collapse: collapse; font-size: 1.2rem; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+.rate-table th { background: #34495e; color: white; padding: 12px; }
+.rate-table td { padding: 12px; text-align: center; border-bottom: 1px solid #ecf0f1; }
+.rate-table tbody tr { opacity: 0; transform: translateX(-20px); }
+.total-row td { background: #f9e79f; font-weight: bold; font-size: 1.4rem; color: var(--text-dark); }
+
+/* ========== Scene 5 ========== */
+.summary-icon { font-size: 6rem; margin-bottom: 20px; opacity: 0; transform: translateY(20px); }
+.logo-text { font-size: 1.5rem; font-weight: 700; color: #95a5a6; margin-bottom: 10px; opacity: 0; transform: translateY(20px); }
+.slogan-en { font-size: 2rem; font-weight: bold; color: var(--primary); text-align: center; line-height: 1.4; opacity: 0; transform: translateY(20px); }
+
+.progress-area { width: 820px; display: flex; flex-direction: column; gap: 8px; }
+.progress-bar-track { width: 100%; height: 6px; background: #dfe6e9; border-radius: 3px; position: relative; }
+.progress-bar-fill { width: 0%; height: 100%; background: var(--secondary); border-radius: 3px; transition: width 0.1s linear; }
+.scene-marker { position: absolute; top: -3px; width: 4px; height: 12px; background: var(--text-dark); border-radius: 2px; }
+.progress-info { display: flex; justify-content: space-between; font-size: 0.9rem; color: #7f8c8d; font-weight: 600; }
+.controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.controls-divider { width: 1px; height: 24px; background: #ccc; margin: 0 6px; }
+.lang-btn { opacity: 0.5; transition: opacity 0.2s; }
+.lang-btn.active { opacity: 1; background-color: #e8f4fd !important; box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2) !important; }
+.controls button { padding: 10px 20px; font-size: 1rem; font-weight: 600; color: var(--text-dark); background: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.1s, box-shadow 0.1s; }
+.controls button:active { transform: translateY(2px); box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(44, 62, 80, 0.9); color: white; padding: 12px 24px; border-radius: 30px; font-size: 1rem; font-weight: 600; pointer-events: none; opacity: 0; transition: opacity 0.3s; z-index: 1000; }
+.toast.show { opacity: 1; }

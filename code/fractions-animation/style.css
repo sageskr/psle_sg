@@ -1,0 +1,312 @@
+:root {
+    --bg-color: #fdfbf7;
+    --text-dark: #2c3e50;
+    --primary-blue: #aec6cf;
+    --primary-yellow: #fdfd96;
+    --primary-orange: #ffb347;
+    --subtitle-bg: #ffffff;
+    --subtitle-text: #4a4a4a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #e0e7ee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    gap: 16px;
+}
+
+.app-container {
+    width: 800px;
+    height: 600px;
+    background-color: var(--bg-color);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.animation-stage {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.scene {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.scene.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Typography */
+.main-title {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    text-align: center;
+    line-height: 1.4;
+}
+
+.en-text {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.cn-text {
+    font-size: 1.2rem;
+    color: var(--subtitle-text);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.scene-math {
+    font-size: 3rem;
+    margin-top: 20px;
+}
+
+/* Scene 2: Pizzas */
+.pizzas-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pizza {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.pizza .slice {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background-color: var(--primary-orange);
+    border: 2px solid white;
+}
+
+.pizza .slice.left {
+    left: 0;
+    border-radius: 150px 0 0 150px;
+    transform-origin: right center;
+}
+
+.pizza .slice.right {
+    right: 0;
+    border-radius: 0 150px 150px 0;
+    transform-origin: left center;
+}
+
+/* Scene 3: Bars */
+.bars-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.bar-group {
+    display: flex;
+    gap: 5px;
+    height: 60px;
+}
+
+.bar {
+    height: 100%;
+    border-radius: 8px;
+    border: 3px solid rgba(0,0,0,0.1);
+}
+
+.whole-bar {
+    width: 300px;
+    background-color: var(--primary-blue);
+}
+
+.half-bar {
+    width: 147.5px; /* (300 - 5) / 2 */
+    background-color: var(--primary-yellow);
+}
+
+.bar.split-half {
+    width: 147.5px;
+    background-color: var(--primary-blue);
+}
+
+/* Scene 4: Abstract */
+.equation-chain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 6px 10px;
+    padding: 0 30px;
+}
+
+.eq-part {
+    font-size: 1.8rem;
+    opacity: 0;
+}
+
+.final-math {
+    font-size: 3.5rem;
+    color: var(--text-dark);
+    font-weight: bold;
+    margin-top: 30px;
+    opacity: 0;
+}
+
+/* Scene 5: Summary */
+.logo-placeholder {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.slogan {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+}
+
+/* Subtitles Area */
+.subtitle-container {
+    height: 100px;
+    background-color: var(--subtitle-bg);
+    border-top: 2px solid #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.02);
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+.controls button {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 20px;
+    background-color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: background 0.2s, transform 0.15s;
+}
+
+.controls button:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: rgba(44, 62, 80, 0.9);
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Progress Area */
+.progress-area {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 3px;
+    position: relative;
+    overflow: visible;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-blue), #7fb3d3);
+    border-radius: 3px;
+    transition: width 0.3s linear;
+}
+
+.scene-marker {
+    position: absolute;
+    top: -3px;
+    width: 3px;
+    height: 12px;
+    background: rgba(44, 62, 80, 0.25);
+    border-radius: 2px;
+    transform: translateX(-50%);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scene-label {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    font-weight: 600;
+}
+
+.countdown-label {
+    font-size: 0.8rem;
+    color: #95a5a6;
+    font-weight: 500;
+}

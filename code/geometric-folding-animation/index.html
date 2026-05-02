@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P5 Math: Geometric Folding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <div class="animation-stage">
+      <!-- Scene 1: Introduction -->
+      <div id="scene1" class="scene">
+        <div class="topic-icon">📐</div>
+        <h1 class="main-title">P5 Math:<br>Geometric Folding &amp; Angles</h1>
+        <div class="scene-text en-text">Geometry &amp; Symmetry in Folding</div>
+      </div>
+
+      <!-- Scene 2: Concrete Stage -->
+      <div id="scene2" class="scene">
+        <div class="paper-container">
+            <!-- Background base outline -->
+            <div class="paper-base">
+                <span class="label-d" style="position:absolute; top:-25px; left:-25px;">D</span>
+                <span class="label-c" style="position:absolute; top:-25px; right:-25px;">C</span>
+                <span class="label-a" style="position:absolute; bottom:-25px; left:-25px;">A</span>
+                <span class="label-b" style="position:absolute; bottom:-25px; right:-25px;">B</span>
+            </div>
+            
+            <!-- Left part of paper (stationary) -->
+            <div class="paper-left"></div>
+            
+            <!-- Right part (folds over) -->
+            <div class="paper-fold" id="foldPiece">
+                <div class="fold-content"></div>
+            </div>
+
+            <!-- Fold line -->
+            <div class="fold-line" id="foldLine"></div>
+        </div>
+        <div class="scene-text en-text" id="scene2-text" style="margin-top: 50px;">Folded part = Original part</div>
+      </div>
+
+      <!-- Scene 3: Pictorial Stage -->
+      <div id="scene3" class="scene">
+        <div class="diagram-container">
+            <svg class="diagram-svg" viewBox="0 0 400 200">
+                <!-- Base rectangle outline -->
+                <rect x="50" y="50" width="300" height="100" fill="none" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5 5" />
+                
+                <!-- Folded shape -->
+                <polygon points="50,50 50,150 350,150 250,50" fill="rgba(155, 89, 182, 0.2)" stroke="#8e44ad" stroke-width="3" />
+                <polygon points="250,50 350,150 150,150" fill="rgba(241, 196, 15, 0.4)" stroke="#f39c12" stroke-width="3" />
+                
+                <!-- Fold Line -->
+                <line x1="250" y1="50" x2="350" y2="150" stroke="#c0392b" stroke-width="3" stroke-dasharray="8 4" id="diagFoldLine" />
+                
+                <!-- Angles -->
+                <path d="M 320 150 A 30 30 0 0 0 330 130" fill="none" stroke="#2c3e50" stroke-width="2" />
+                <text x="310" y="145" class="angle-label angle-x1">x</text>
+
+                <path d="M 180 150 A 30 30 0 0 1 170 130" fill="none" stroke="#2c3e50" stroke-width="2" />
+                <text x="180" y="145" class="angle-label angle-x2">x</text>
+
+                <!-- 90 deg corner -->
+                <polyline points="335,50 335,65 350,65" fill="none" stroke="#2c3e50" stroke-width="2" class="angle-90" />
+                
+            </svg>
+        </div>
+        <div class="scene-text en-text" id="scene3-text">Map the angles: &ang;1 = &ang;2</div>
+      </div>
+
+      <!-- Scene 4: Abstract Stage -->
+      <div id="scene4" class="scene">
+        <div class="equation-container">
+            <div class="equation-chain">
+                <span class="eq-part">$$2x + 40^\circ = 180^\circ$$</span>
+                <span class="eq-desc">(angles on a straight line)</span>
+                <span class="eq-part" style="margin-top:20px;">$$2x = 140^\circ$$</span>
+                <span class="eq-part final-formula">$$x = 70^\circ$$</span>
+            </div>
+        </div>
+        <div class="scene-text en-text" id="scene4-text">Property: Sum of angles on a straight line = 180&deg;</div>
+      </div>
+
+      <!-- Scene 5: Summary -->
+      <div id="scene5" class="scene">
+        <div class="summary-icon">🦋</div>
+        <div class="logo-text">📐 Math Mastery</div>
+        <h2 class="slogan-en">Folding creates equal angles!</h2>
+      </div>
+
+    </div>
+    <div class="subtitle-container"><div id="subtitle-text" class="cn-text"></div></div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <div class="progress-area">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressFill"></div>
+      <div class="scene-marker" style="left: 8.3%;" title="Scene 1"></div>
+      <div class="scene-marker" style="left: 33.3%;" title="Scene 2"></div>
+      <div class="scene-marker" style="left: 66.6%;" title="Scene 3"></div>
+      <div class="scene-marker" style="left: 91.6%;" title="Scene 4"></div>
+    </div>
+    <div class="progress-info"><span id="sceneLabel" class="scene-label"></span><span id="countdownLabel" class="countdown-label"></span></div>
+  </div>
+  <div class="controls">
+    <button id="homeBtn" onclick="window.location.href='../index.html'">🏠 首页</button>
+    <button id="playBtn">▶ Play</button>
+    <button id="pauseBtn">⏸ Pause</button>
+    <button id="restartBtn">↻ Restart</button>
+    <span class="controls-divider"></span>
+    <button id="langCn" class="lang-btn" data-lang="cn">🇨🇳 中文</button>
+    <button id="langEn" class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button id="langBoth" class="lang-btn active" data-lang="both">🇨🇳🇬🇧 双语</button>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [ {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false} ]
+      });
+    });
+  </script>
+</body>
+</html>
