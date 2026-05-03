@@ -92,16 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
             items.forEach(item => {
                 const card = document.createElement('a');
                 card.className = `card ${item.level.toLowerCase()}`;
-                if (item.done) {
-                    card.href = item.link;
-                } else {
-                    card.href = '#';
-                    card.style.opacity = '0.5';
-                }
-
-                const statusBadge = item.done
-                    ? `<div class="status-badge done">${currentLang === 'cn' ? '✅ 已完成' : currentLang === 'en' ? '✅ Completed' : '✅ 已完成 Completed'}</div>`
-                    : `<div class="status-badge">⏳ 待生成 Pending</div>`;
+                card.href = item.link;
 
                 let titleHTML = '';
                 if (currentLang === 'en') {
@@ -112,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     titleHTML = `<div class="card-title-en">${item.en}</div><div class="card-title-cn">${item.cn}</div>`;
                 }
 
-                card.innerHTML = `${titleHTML}${statusBadge}`;
+                card.innerHTML = titleHTML;
                 cardsEl.appendChild(card);
             });
 
